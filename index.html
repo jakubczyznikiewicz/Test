@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#6C63FF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Math Stars - Multiplication Practice</title>
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,11 +15,53 @@
 </head>
 <body>
     <div id="app">
+        <!-- MUTE TOGGLE (global) -->
+        <button id="mute-toggle" class="mute-toggle" data-action="toggle-mute" aria-label="Toggle sound">
+            <span class="mute-icon-on">&#x1F50A;</span>
+            <span class="mute-icon-off" style="display:none;">&#x1F507;</span>
+        </button>
+
+        <!-- ANIMATED BACKGROUND -->
+        <div class="bg-stars" aria-hidden="true">
+            <div class="bg-star" style="--x:10%;--delay:0s;--dur:6s;--size:8px;"></div>
+            <div class="bg-star" style="--x:25%;--delay:1s;--dur:8s;--size:6px;"></div>
+            <div class="bg-star" style="--x:40%;--delay:2s;--dur:7s;--size:10px;"></div>
+            <div class="bg-star" style="--x:55%;--delay:0.5s;--dur:9s;--size:5px;"></div>
+            <div class="bg-star" style="--x:70%;--delay:3s;--dur:6s;--size:7px;"></div>
+            <div class="bg-star" style="--x:85%;--delay:1.5s;--dur:8s;--size:9px;"></div>
+            <div class="bg-star" style="--x:15%;--delay:4s;--dur:7s;--size:6px;"></div>
+            <div class="bg-star" style="--x:50%;--delay:2.5s;--dur:10s;--size:8px;"></div>
+            <div class="bg-star" style="--x:90%;--delay:0.8s;--dur:6s;--size:5px;"></div>
+            <div class="bg-star" style="--x:5%;--delay:3.5s;--dur:9s;--size:7px;"></div>
+            <div class="bg-star" style="--x:35%;--delay:1.2s;--dur:7s;--size:6px;"></div>
+            <div class="bg-star" style="--x:65%;--delay:4.5s;--dur:8s;--size:10px;"></div>
+            <div class="bg-star" style="--x:80%;--delay:2.8s;--dur:6s;--size:4px;"></div>
+            <div class="bg-star" style="--x:45%;--delay:0.3s;--dur:9s;--size:8px;"></div>
+            <div class="bg-star" style="--x:20%;--delay:3.8s;--dur:7s;--size:6px;"></div>
+        </div>
+
         <!-- HOME SCREEN -->
         <section id="screen-home" class="screen screen--active">
             <div class="home-stars">&#9733; &#9733; &#9733;</div>
             <h1 class="home-title">Math Stars</h1>
             <p class="home-subtitle">Multiplication Practice</p>
+
+            <div class="dragon-container">
+                <div id="dragon-home" class="dragon dragon--wave">
+                    <div class="dragon-body"></div>
+                    <div class="dragon-head">
+                        <div class="dragon-eyes">
+                            <div class="dragon-eye dragon-eye--left"></div>
+                            <div class="dragon-eye dragon-eye--right"></div>
+                        </div>
+                        <div class="dragon-mouth dragon-mouth--happy"></div>
+                    </div>
+                    <div class="dragon-wing dragon-wing--left"></div>
+                    <div class="dragon-wing dragon-wing--right"></div>
+                    <div class="dragon-tail"></div>
+                </div>
+                <div id="dragon-speech-home" class="dragon-speech"></div>
+            </div>
 
             <div id="home-welcome" class="home-welcome"></div>
 
@@ -29,9 +72,89 @@
             </div>
 
             <div id="home-buttons" class="home-buttons" style="display:none;">
-                <button class="btn btn--primary btn--large" data-action="go-settings">Play!</button>
+                <button class="btn btn--primary btn--large" data-action="go-settings">&#9733; Play!</button>
+                <button class="btn btn--learn btn--large" data-action="go-learn">&#x1F4D6; Learn</button>
                 <button class="btn btn--secondary" data-action="go-progress">My Progress</button>
             </div>
+        </section>
+
+        <!-- LEARN MODE SCREEN -->
+        <section id="screen-learn" class="screen">
+            <h2 class="screen-title">Learn Multiplication</h2>
+
+            <div class="dragon-container dragon-container--small">
+                <div class="dragon dragon--think">
+                    <div class="dragon-body"></div>
+                    <div class="dragon-head">
+                        <div class="dragon-eyes">
+                            <div class="dragon-eye dragon-eye--left"></div>
+                            <div class="dragon-eye dragon-eye--right"></div>
+                        </div>
+                        <div class="dragon-mouth dragon-mouth--happy"></div>
+                    </div>
+                    <div class="dragon-wing dragon-wing--left"></div>
+                    <div class="dragon-wing dragon-wing--right"></div>
+                </div>
+                <div id="dragon-speech-learn" class="dragon-speech">Pick a table to learn!</div>
+            </div>
+
+            <!-- Table Selector -->
+            <div id="learn-table-select" class="learn-table-select">
+                <div class="table-selector-grid">
+                    <button class="table-btn" data-table="1" data-action="select-table">1</button>
+                    <button class="table-btn" data-table="2" data-action="select-table">2</button>
+                    <button class="table-btn" data-table="3" data-action="select-table">3</button>
+                    <button class="table-btn" data-table="4" data-action="select-table">4</button>
+                    <button class="table-btn" data-table="5" data-action="select-table">5</button>
+                    <button class="table-btn" data-table="6" data-action="select-table">6</button>
+                    <button class="table-btn" data-table="7" data-action="select-table">7</button>
+                    <button class="table-btn" data-table="8" data-action="select-table">8</button>
+                    <button class="table-btn" data-table="9" data-action="select-table">9</button>
+                    <button class="table-btn" data-table="10" data-action="select-table">10</button>
+                    <button class="table-btn" data-table="11" data-action="select-table">11</button>
+                    <button class="table-btn" data-table="12" data-action="select-table">12</button>
+                </div>
+            </div>
+
+            <!-- Learn Content (hidden until table selected) -->
+            <div id="learn-content" class="learn-content" style="display:none;">
+                <!-- Tab Buttons -->
+                <div class="learn-tabs">
+                    <button class="learn-tab learn-tab--active" data-tab="array" data-action="learn-tab">Array</button>
+                    <button class="learn-tab" data-tab="skip" data-action="learn-tab">Skip Count</button>
+                    <button class="learn-tab" data-tab="chart" data-action="learn-tab">100 Chart</button>
+                </div>
+
+                <!-- Array Builder -->
+                <div id="learn-array" class="learn-panel learn-panel--active">
+                    <h3 id="array-title" class="learn-panel-title">3 &times; 4 = ?</h3>
+                    <div id="array-grid" class="array-grid"></div>
+                    <p id="array-count" class="array-count"></p>
+                    <div class="array-controls">
+                        <button class="btn btn--secondary btn--small" data-action="array-prev">&#9664; Prev</button>
+                        <span id="array-step" class="array-step">1 of 12</span>
+                        <button class="btn btn--secondary btn--small" data-action="array-next">Next &#9654;</button>
+                    </div>
+                </div>
+
+                <!-- Skip Counting -->
+                <div id="learn-skip" class="learn-panel">
+                    <h3 id="skip-title" class="learn-panel-title">Skip Counting by 3s</h3>
+                    <div id="skip-number-line" class="skip-number-line"></div>
+                    <button class="btn btn--secondary" data-action="skip-animate">&#9654; Watch the hops!</button>
+                </div>
+
+                <!-- Hundreds Chart -->
+                <div id="learn-chart" class="learn-panel">
+                    <h3 id="chart-title" class="learn-panel-title">Multiples of 3</h3>
+                    <div id="hundreds-chart" class="hundreds-chart"></div>
+                    <p id="chart-pattern" class="chart-pattern"></p>
+                </div>
+
+                <button class="btn btn--primary btn--large" data-action="learn-to-quiz">Ready to Practice!</button>
+            </div>
+
+            <button class="btn btn--ghost" data-action="go-home">Back Home</button>
         </section>
 
         <!-- SETTINGS SCREEN -->
@@ -79,6 +202,20 @@
                 </div>
             </div>
 
+            <div class="dragon-container dragon-container--quiz">
+                <div class="dragon dragon--small">
+                    <div class="dragon-body"></div>
+                    <div class="dragon-head">
+                        <div class="dragon-eyes">
+                            <div class="dragon-eye dragon-eye--left"></div>
+                            <div class="dragon-eye dragon-eye--right"></div>
+                        </div>
+                        <div class="dragon-mouth dragon-mouth--happy"></div>
+                    </div>
+                </div>
+                <div id="dragon-speech-quiz" class="dragon-speech dragon-speech--small">You can do it!</div>
+            </div>
+
             <div id="quiz-feedback" class="quiz-feedback"></div>
 
             <div class="quiz-question">
@@ -99,6 +236,22 @@
 
         <!-- RESULTS SCREEN -->
         <section id="screen-results" class="screen">
+            <div class="dragon-container">
+                <div class="dragon dragon--celebrate">
+                    <div class="dragon-body"></div>
+                    <div class="dragon-head">
+                        <div class="dragon-eyes">
+                            <div class="dragon-eye dragon-eye--left dragon-eye--star"></div>
+                            <div class="dragon-eye dragon-eye--right dragon-eye--star"></div>
+                        </div>
+                        <div class="dragon-mouth dragon-mouth--open"></div>
+                    </div>
+                    <div class="dragon-wing dragon-wing--left dragon-wing--up"></div>
+                    <div class="dragon-wing dragon-wing--right dragon-wing--up"></div>
+                </div>
+                <div id="dragon-speech-results" class="dragon-speech"></div>
+            </div>
+
             <h2 id="results-title" class="results-title">Great Job!</h2>
 
             <div id="results-stars" class="results-stars"></div>
@@ -178,8 +331,11 @@
         </div>
     </div>
 
+    <script src="js/sounds.js"></script>
+    <script src="js/dragon.js"></script>
     <script src="js/progress.js"></script>
     <script src="js/rewards.js"></script>
+    <script src="js/learn.js"></script>
     <script src="js/quiz.js"></script>
     <script src="js/app.js"></script>
 </body>

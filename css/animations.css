@@ -1,0 +1,188 @@
+/* ===== BACKGROUND FLOATING STARS ===== */
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.3;
+    }
+    90% {
+        opacity: 0.3;
+    }
+    100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ===== SCREEN TRANSITIONS ===== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== FEEDBACK ANIMATIONS ===== */
+@keyframes correctBounce {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.1); }
+    60% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    15% { transform: translateX(-8px); }
+    30% { transform: translateX(8px); }
+    45% { transform: translateX(-6px); }
+    60% { transform: translateX(6px); }
+    75% { transform: translateX(-3px); }
+    90% { transform: translateX(3px); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes timerPulse {
+    0% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+/* ===== STAR ANIMATIONS ===== */
+@keyframes starPop {
+    0% { transform: scale(0) rotate(-30deg); opacity: 0; }
+    60% { transform: scale(1.3) rotate(10deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* ===== CONFETTI ===== */
+@keyframes confettiFall {
+    0% {
+        transform: translateX(0) translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(var(--drift, 50px)) translateY(100vh) rotate(var(--spin, 720deg));
+        opacity: 0;
+    }
+}
+
+/* ===== FIREWORKS ===== */
+@keyframes fireworkBurst {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+.firework {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    pointer-events: none;
+}
+
+.firework-particle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: fireworkParticle 1s ease-out forwards;
+}
+
+@keyframes fireworkParticle {
+    0% {
+        transform: translate(-50%, -50%) translate(0, 0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) translate(var(--fx), var(--fy));
+        opacity: 0;
+    }
+}
+
+/* ===== DRAGON ANIMATIONS ===== */
+@keyframes dragonBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+@keyframes dragonCelebrate {
+    0% { transform: translateY(0) rotate(-5deg); }
+    100% { transform: translateY(-10px) rotate(5deg); }
+}
+
+@keyframes wingFlap {
+    0% { transform: rotate(-15deg); }
+    100% { transform: rotate(-40deg); }
+}
+
+/* ===== LEARN MODE ANIMATIONS ===== */
+@keyframes dotPop {
+    0% { transform: scale(0); }
+    70% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+@keyframes hop {
+    0% { transform: scale(1) translateY(0); }
+    50% { transform: scale(1.2) translateY(-12px); }
+    100% { transform: scale(1.15) translateY(0); }
+}
+
+@keyframes numberHighlight {
+    0% { background: var(--color-bg); }
+    100% { background: var(--color-learn); color: white; }
+}
+
+/* ===== BADGE POPUP ===== */
+@keyframes badgePopIn {
+    0% { transform: scale(0) rotate(-10deg); opacity: 0; }
+    60% { transform: scale(1.1) rotate(3deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+/* ===== STREAK FIRE ===== */
+@keyframes fireGlow {
+    0%, 100% { text-shadow: 0 0 8px rgba(255, 152, 0, 0.5); }
+    50% { text-shadow: 0 0 16px rgba(255, 152, 0, 0.8), 0 0 24px rgba(255, 82, 82, 0.4); }
+}
+
+.streak-fire {
+    animation: fireGlow 0.8s ease infinite;
+}
+
+/* ===== FLOATING SCORE ===== */
+@keyframes floatScore {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-40px); opacity: 0; }
+}
+
+.float-score {
+    position: absolute;
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: var(--color-success);
+    pointer-events: none;
+    animation: floatScore 0.8s ease forwards;
+}
+
+.float-score--wrong {
+    color: var(--color-danger);
+}
