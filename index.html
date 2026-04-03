@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#6C63FF">
+    <title>Math Stars - Multiplication Practice</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+    <div id="app">
+        <!-- HOME SCREEN -->
+        <section id="screen-home" class="screen screen--active">
+            <div class="home-stars">&#9733; &#9733; &#9733;</div>
+            <h1 class="home-title">Math Stars</h1>
+            <p class="home-subtitle">Multiplication Practice</p>
+
+            <div id="home-welcome" class="home-welcome"></div>
+
+            <div id="name-entry" class="name-entry" style="display:none;">
+                <label for="player-name">What's your name?</label>
+                <input type="text" id="player-name" maxlength="20" placeholder="Enter your name" autocomplete="off">
+                <button class="btn btn--primary" data-action="save-name">Let's Go!</button>
+            </div>
+
+            <div id="home-buttons" class="home-buttons" style="display:none;">
+                <button class="btn btn--primary btn--large" data-action="go-settings">Play!</button>
+                <button class="btn btn--secondary" data-action="go-progress">My Progress</button>
+            </div>
+        </section>
+
+        <!-- SETTINGS SCREEN -->
+        <section id="screen-settings" class="screen">
+            <h2 class="screen-title">Choose Difficulty</h2>
+            <div class="difficulty-cards">
+                <button class="difficulty-card" data-difficulty="easy" data-action="select-difficulty">
+                    <span class="difficulty-icon">&#x1F430;</span>
+                    <span class="difficulty-label">Easy</span>
+                    <span class="difficulty-range">1 - 5</span>
+                </button>
+                <button class="difficulty-card" data-difficulty="medium" data-action="select-difficulty">
+                    <span class="difficulty-icon">&#x1F98A;</span>
+                    <span class="difficulty-label">Medium</span>
+                    <span class="difficulty-range">1 - 8</span>
+                </button>
+                <button class="difficulty-card" data-difficulty="hard" data-action="select-difficulty">
+                    <span class="difficulty-icon">&#x1F981;</span>
+                    <span class="difficulty-label">Hard</span>
+                    <span class="difficulty-range">1 - 12</span>
+                </button>
+            </div>
+
+            <h2 class="screen-title">Choose Time</h2>
+            <div class="time-buttons">
+                <button class="time-btn" data-time="30" data-action="select-time">30s</button>
+                <button class="time-btn time-btn--active" data-time="60" data-action="select-time">60s</button>
+                <button class="time-btn" data-time="90" data-action="select-time">90s</button>
+            </div>
+
+            <button class="btn btn--primary btn--large" data-action="start-quiz">Start Quiz!</button>
+            <button class="btn btn--ghost" data-action="go-home">Back</button>
+        </section>
+
+        <!-- QUIZ SCREEN -->
+        <section id="screen-quiz" class="screen">
+            <div class="quiz-header">
+                <div class="timer-bar-container">
+                    <div id="timer-bar" class="timer-bar"></div>
+                </div>
+                <div class="quiz-stats">
+                    <span class="quiz-score">Score: <strong id="quiz-score">0</strong></span>
+                    <span id="quiz-timer-text" class="quiz-timer-text">60s</span>
+                    <span class="quiz-streak">Streak: <strong id="quiz-streak">0</strong> <span id="streak-icon"></span></span>
+                </div>
+            </div>
+
+            <div id="quiz-feedback" class="quiz-feedback"></div>
+
+            <div class="quiz-question">
+                <span id="quiz-num-a" class="quiz-num">3</span>
+                <span class="quiz-operator">&times;</span>
+                <span id="quiz-num-b" class="quiz-num">7</span>
+                <span class="quiz-equals">=</span>
+                <span class="quiz-qmark">?</span>
+            </div>
+
+            <div id="answer-grid" class="answer-grid">
+                <button class="answer-btn" data-action="submit-answer">21</button>
+                <button class="answer-btn" data-action="submit-answer">24</button>
+                <button class="answer-btn" data-action="submit-answer">18</button>
+                <button class="answer-btn" data-action="submit-answer">28</button>
+            </div>
+        </section>
+
+        <!-- RESULTS SCREEN -->
+        <section id="screen-results" class="screen">
+            <h2 id="results-title" class="results-title">Great Job!</h2>
+
+            <div id="results-stars" class="results-stars"></div>
+
+            <div class="results-card">
+                <div class="results-stat">
+                    <span class="results-stat-label">Score</span>
+                    <span id="results-score" class="results-stat-value">12 / 15</span>
+                </div>
+                <div class="results-stat">
+                    <span class="results-stat-label">Accuracy</span>
+                    <span id="results-accuracy" class="results-stat-value">80%</span>
+                </div>
+                <div class="results-stat">
+                    <span class="results-stat-label">Best Streak</span>
+                    <span id="results-streak" class="results-stat-value">7</span>
+                </div>
+            </div>
+
+            <div id="results-badges" class="results-badges"></div>
+
+            <p id="results-message" class="results-message"></p>
+
+            <div class="results-buttons">
+                <button class="btn btn--primary btn--large" data-action="play-again">Play Again</button>
+                <button class="btn btn--secondary" data-action="go-home">Home</button>
+            </div>
+        </section>
+
+        <!-- PROGRESS SCREEN -->
+        <section id="screen-progress" class="screen">
+            <h2 class="screen-title">My Progress</h2>
+
+            <div class="progress-stats">
+                <div class="progress-stat-card">
+                    <span id="prog-quizzes" class="progress-stat-num">0</span>
+                    <span class="progress-stat-label">Quizzes</span>
+                </div>
+                <div class="progress-stat-card">
+                    <span id="prog-correct" class="progress-stat-num">0</span>
+                    <span class="progress-stat-label">Correct</span>
+                </div>
+                <div class="progress-stat-card">
+                    <span id="prog-streak" class="progress-stat-num">0</span>
+                    <span class="progress-stat-label">Best Streak</span>
+                </div>
+                <div class="progress-stat-card">
+                    <span id="prog-stars" class="progress-stat-num">0</span>
+                    <span class="progress-stat-label">Stars</span>
+                </div>
+            </div>
+
+            <h3 class="section-title">Table Mastery</h3>
+            <div id="mastery-grid" class="mastery-grid"></div>
+
+            <div class="mastery-legend">
+                <span class="legend-item"><span class="legend-color legend-color--none"></span> Not tried</span>
+                <span class="legend-item"><span class="legend-color legend-color--learning"></span> Learning</span>
+                <span class="legend-item"><span class="legend-color legend-color--good"></span> Good</span>
+                <span class="legend-item"><span class="legend-color legend-color--mastered"></span> Mastered</span>
+            </div>
+
+            <h3 class="section-title">My Badges</h3>
+            <div id="badge-shelf" class="badge-shelf"></div>
+
+            <button class="btn btn--ghost" data-action="go-home">Back Home</button>
+        </section>
+
+        <!-- OVERLAYS -->
+        <div id="confetti-container" class="confetti-container"></div>
+        <div id="badge-popup" class="badge-popup" style="display:none;">
+            <div class="badge-popup-content">
+                <div id="badge-popup-icon" class="badge-popup-icon"></div>
+                <h3 id="badge-popup-name" class="badge-popup-name">Badge Name</h3>
+                <p id="badge-popup-desc" class="badge-popup-desc">Description</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/progress.js"></script>
+    <script src="js/rewards.js"></script>
+    <script src="js/quiz.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
