@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dragon Style Preview</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #F5F0FF, #E8E0FF);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        h1 { text-align: center; color: #6C63FF; font-size: 1.5rem; margin-bottom: 20px; }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(108,99,255,0.15);
+        }
+        .card h2 { color: #6C63FF; font-size: 1rem; margin-bottom: 4px; }
+        .card p { color: #888; font-size: 0.7rem; margin-bottom: 12px; }
+        .preview { min-height: 180px; display: flex; align-items: center; justify-content: center; }
+        .speech { background: #F5F0FF; border-radius: 12px; padding: 8px 12px; font-size: 0.75rem; color: #2D2B55; margin-top: 8px; font-weight: 700; }
+        .stages { display: flex; gap: 8px; justify-content: center; margin-top: 8px; font-size: 0.65rem; color: #888; }
+        .stages span { background: #F5F0FF; padding: 4px 8px; border-radius: 8px; }
+
+        /* ===== OPTION 1: ADVANCED CSS DRAGON ===== */
+        .css-dragon {
+            position: relative;
+            width: 120px;
+            height: 140px;
+            animation: cssBounce 2s ease infinite;
+        }
+        @keyframes cssBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+
+        .css-dragon .body {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 65px;
+            background: linear-gradient(180deg, #4CAF50 0%, #2E7D32 100%);
+            border-radius: 30px 30px 22px 22px;
+        }
+        /* Belly */
+        .css-dragon .belly {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 36px;
+            height: 40px;
+            background: linear-gradient(180deg, #A5D6A7 0%, #81C784 100%);
+            border-radius: 18px 18px 16px 16px;
+            z-index: 1;
+        }
+        /* Head */
+        .css-dragon .head {
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 52px;
+            height: 48px;
+            background: linear-gradient(180deg, #66BB6A 0%, #4CAF50 100%);
+            border-radius: 26px 26px 18px 18px;
+            z-index: 3;
+        }
+        /* Snout */
+        .css-dragon .snout {
+            position: absolute;
+            top: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 18px;
+            background: #66BB6A;
+            border-radius: 12px 12px 15px 15px;
+            z-index: 4;
+        }
+        .css-dragon .nostril {
+            position: absolute;
+            top: 4px;
+            width: 5px;
+            height: 5px;
+            background: #2E7D32;
+            border-radius: 50%;
+        }
+        .css-dragon .nostril.l { left: 6px; }
+        .css-dragon .nostril.r { right: 6px; }
+        /* Eyes */
+        .css-dragon .eye {
+            position: absolute;
+            top: 15px;
+            width: 14px;
+            height: 14px;
+            background: white;
+            border-radius: 50%;
+            z-index: 5;
+        }
+        .css-dragon .eye.l { left: 10px; }
+        .css-dragon .eye.r { right: 10px; }
+        .css-dragon .pupil {
+            position: absolute;
+            top: 3px;
+            right: 2px;
+            width: 8px;
+            height: 8px;
+            background: #1B5E20;
+            border-radius: 50%;
+        }
+        .css-dragon .pupil::after {
+            content: '';
+            position: absolute;
+            top: 1px;
+            right: 1px;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+        }
+        /* Horns */
+        .css-dragon .horn {
+            position: absolute;
+            top: -2px;
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-bottom: 16px solid #FF9800;
+            z-index: 2;
+        }
+        .css-dragon .horn.l { left: 8px; transform: rotate(-15deg); }
+        .css-dragon .horn.r { right: 8px; transform: rotate(15deg); }
+        /* Wings */
+        .css-dragon .wing {
+            position: absolute;
+            top: 40px;
+            width: 35px;
+            height: 50px;
+            background: linear-gradient(135deg, #81C784 0%, #A5D6A7 100%);
+            z-index: 0;
+        }
+        .css-dragon .wing.l {
+            left: -15px;
+            border-radius: 20px 4px 4px 20px;
+            transform-origin: right center;
+            animation: flapL 1.5s ease infinite;
+        }
+        .css-dragon .wing.r {
+            right: -15px;
+            border-radius: 4px 20px 20px 4px;
+            transform-origin: left center;
+            animation: flapR 1.5s ease infinite;
+        }
+        @keyframes flapL { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(-20deg)} }
+        @keyframes flapR { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(20deg)} }
+        /* Spikes */
+        .css-dragon .spikes {
+            position: absolute;
+            top: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 2px;
+            z-index: 2;
+        }
+        .css-dragon .spike {
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-bottom: 10px solid #388E3C;
+        }
+        /* Tail */
+        .css-dragon .tail {
+            position: absolute;
+            bottom: 8px;
+            right: -20px;
+            width: 40px;
+            height: 14px;
+            background: #4CAF50;
+            border-radius: 0 10px 10px 0;
+            transform: rotate(-8deg);
+        }
+        .css-dragon .tail-tip {
+            position: absolute;
+            right: -8px;
+            top: -4px;
+            width: 0;
+            height: 0;
+            border-left: 12px solid #4CAF50;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+        }
+        /* Mouth happy */
+        .css-dragon .mouth {
+            position: absolute;
+            top: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 14px;
+            height: 7px;
+            border-bottom: 3px solid #1B5E20;
+            border-radius: 0 0 7px 7px;
+            z-index: 5;
+        }
+        /* Fire */
+        .css-dragon .fire {
+            position: absolute;
+            top: 38px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 6;
+            animation: fireFlicker 0.3s ease infinite alternate;
+        }
+        .css-dragon .fire-inner { width: 8px; height: 12px; background: #FFEB3B; border-radius: 4px 4px 2px 2px; margin: 0 auto; }
+        .css-dragon .fire-outer { width: 14px; height: 8px; background: #FF5722; border-radius: 4px 4px 7px 7px; margin: -4px auto 0; }
+        @keyframes fireFlicker { 0%{transform:translateX(-50%) scale(1)} 100%{transform:translateX(-50%) scale(1.1,0.9)} }
+        /* Feet */
+        .css-dragon .foot {
+            position: absolute;
+            bottom: 0;
+            width: 18px;
+            height: 12px;
+            background: #388E3C;
+            border-radius: 0 0 8px 8px;
+        }
+        .css-dragon .foot.l { left: 15px; }
+        .css-dragon .foot.r { right: 15px; }
+
+        /* ===== OPTION 2: SVG DRAGON ===== */
+        .svg-dragon-wrap { animation: svgBounce 2s ease infinite; }
+        @keyframes svgBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+        .svg-dragon-wrap svg .wing-anim { animation: svgFlap 1.2s ease infinite; transform-origin: 85px 70px; }
+        @keyframes svgFlap { 0%,100%{transform:rotate(0)} 50%{transform:rotate(-15deg)} }
+        .svg-dragon-wrap svg .tail-wag { animation: svgWag 2s ease infinite; transform-origin: 130px 110px; }
+        @keyframes svgWag { 0%,100%{transform:rotate(0)} 50%{transform:rotate(8deg)} }
+        .svg-dragon-wrap svg .blink { animation: svgBlink 3s ease infinite; }
+        @keyframes svgBlink { 0%,42%,46%,100%{ry:7} 44%{ry:1} }
+
+        /* ===== OPTION 3: PIXEL ART DRAGON ===== */
+        .pixel-dragon {
+            display: grid;
+            grid-template-columns: repeat(12, 8px);
+            grid-template-rows: repeat(14, 8px);
+            gap: 1px;
+            animation: pixelBounce 1.5s ease infinite;
+        }
+        @keyframes pixelBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+        .px { border-radius: 1px; }
+        .px-g { background: #4CAF50; }
+        .px-G { background: #66BB6A; }
+        .px-d { background: #2E7D32; }
+        .px-w { background: white; }
+        .px-b { background: #1B5E20; }
+        .px-o { background: #FF9800; }
+        .px-r { background: #FF5722; }
+        .px-y { background: #FFEB3B; }
+        .px-l { background: #81C784; }
+        .px-e { background: transparent; }
+
+        /* ===== OPTION 4: CANVAS DRAGON ===== */
+        #canvas-dragon { border-radius: 16px; }
+    </style>
+</head>
+<body>
+    <h1>Choose Your Dragon Style</h1>
+
+    <div class="grid">
+        <!-- OPTION 1: Advanced CSS -->
+        <div class="card">
+            <h2>1. Advanced CSS Dragon</h2>
+            <p>Pure CSS shapes, gradients, and animations</p>
+            <div class="preview">
+                <div class="css-dragon">
+                    <div class="horn l"></div>
+                    <div class="horn r"></div>
+                    <div class="head">
+                        <div class="eye l"><div class="pupil"></div></div>
+                        <div class="eye r"><div class="pupil"></div></div>
+                        <div class="mouth"></div>
+                    </div>
+                    <div class="snout">
+                        <div class="nostril l"></div>
+                        <div class="nostril r"></div>
+                    </div>
+                    <div class="fire">
+                        <div class="fire-inner"></div>
+                        <div class="fire-outer"></div>
+                    </div>
+                    <div class="spikes"><div class="spike"></div><div class="spike"></div><div class="spike"></div></div>
+                    <div class="wing l"></div>
+                    <div class="wing r"></div>
+                    <div class="body"></div>
+                    <div class="belly"></div>
+                    <div class="tail"><div class="tail-tip"></div></div>
+                    <div class="foot l"></div>
+                    <div class="foot r"></div>
+                </div>
+            </div>
+            <div class="speech">"I'm made of pure CSS!"</div>
+            <div class="stages"><span>Flapping wings</span><span>Fire breath</span><span>Spikes & horns</span></div>
+        </div>
+
+        <!-- OPTION 2: SVG -->
+        <div class="card">
+            <h2>2. SVG Illustrated Dragon</h2>
+            <p>Smooth vector graphics, hand-drawn feel</p>
+            <div class="preview">
+                <div class="svg-dragon-wrap">
+                <svg width="160" height="150" viewBox="0 0 160 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Body -->
+                    <ellipse cx="80" cy="100" rx="35" ry="40" fill="url(#bodyGrad)"/>
+                    <!-- Belly -->
+                    <ellipse cx="80" cy="108" rx="22" ry="26" fill="#A5D6A7"/>
+                    <!-- Tail -->
+                    <g class="tail-wag">
+                        <path d="M110 110 Q140 100 150 85 Q148 80 142 82 Q135 95 110 105" fill="#4CAF50"/>
+                        <path d="M150 85 L158 78 L152 76 L150 85" fill="#FF9800"/>
+                    </g>
+                    <!-- Left Wing -->
+                    <g class="wing-anim">
+                        <path d="M50 70 Q20 40 15 55 Q18 65 30 72 Q20 55 25 48 Q35 60 50 70" fill="#81C784" opacity="0.9"/>
+                    </g>
+                    <!-- Right Wing -->
+                    <g class="wing-anim" style="transform-origin:75px 70px;">
+                        <path d="M110 70 Q140 40 145 55 Q142 65 130 72 Q140 55 135 48 Q125 60 110 70" fill="#81C784" opacity="0.9"/>
+                    </g>
+                    <!-- Head -->
+                    <ellipse cx="80" cy="52" rx="28" ry="25" fill="#66BB6A"/>
+                    <!-- Snout -->
+                    <ellipse cx="80" cy="65" rx="16" ry="10" fill="#7BC67E"/>
+                    <!-- Nostrils -->
+                    <circle cx="74" cy="63" r="2.5" fill="#2E7D32"/>
+                    <circle cx="86" cy="63" r="2.5" fill="#2E7D32"/>
+                    <!-- Eyes -->
+                    <ellipse class="blink" cx="68" cy="48" rx="8" ry="7" fill="white"/>
+                    <ellipse class="blink" cx="92" cy="48" rx="8" ry="7" fill="white"/>
+                    <circle cx="70" cy="48" r="5" fill="#1B5E20"/>
+                    <circle cx="94" cy="48" r="5" fill="#1B5E20"/>
+                    <circle cx="72" cy="46" r="2" fill="white"/>
+                    <circle cx="96" cy="46" r="2" fill="white"/>
+                    <!-- Happy mouth -->
+                    <path d="M72 70 Q80 78 88 70" stroke="#1B5E20" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                    <!-- Horns -->
+                    <path d="M60 32 L54 15 L62 28" fill="#FF9800"/>
+                    <path d="M100 32 L106 15 L98 28" fill="#FF9800"/>
+                    <!-- Spikes -->
+                    <path d="M76 28 L80 16 L84 28" fill="#388E3C"/>
+                    <!-- Cheeks (blush) -->
+                    <circle cx="60" cy="60" r="6" fill="#E57373" opacity="0.3"/>
+                    <circle cx="100" cy="60" r="6" fill="#E57373" opacity="0.3"/>
+                    <!-- Feet -->
+                    <ellipse cx="65" cy="138" rx="10" ry="6" fill="#388E3C"/>
+                    <ellipse cx="95" cy="138" rx="10" ry="6" fill="#388E3C"/>
+                    <defs>
+                        <linearGradient id="bodyGrad" x1="80" y1="60" x2="80" y2="140">
+                            <stop offset="0%" stop-color="#4CAF50"/>
+                            <stop offset="100%" stop-color="#2E7D32"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                </div>
+            </div>
+            <div class="speech">"I'm smooth and expressive!"</div>
+            <div class="stages"><span>Blushing cheeks</span><span>Blinking eyes</span><span>Tail wag</span></div>
+        </div>
+
+        <!-- OPTION 3: Pixel Art -->
+        <div class="card">
+            <h2>3. Pixel Art Dragon</h2>
+            <p>Retro game aesthetic, charming 8-bit style</p>
+            <div class="preview">
+                <div class="pixel-dragon">
+                    <!-- Row 1: horns -->
+                    <div class="px px-e"></div><div class="px px-o"></div><div class="px px-e"></div><div class="px px-e"></div><div class="px px-e"></div><div class="px px-e"></div><div class="px px-e"></div><div class="px px-e"></div><div class="px px-e"></div><div class="px px-e"></div><div class="px px-o"></div><div class="px px-e"></div>
+                    <!-- Row 2 -->
+                    <div class="px px-e"></div><div class="px px-o"></div><div class="px px-e"></div><div class="px px-e"></div><div class="px px-d"></div><div class="px px-d"></div><div class="px px-d"></div><div class="px px-d"></div><div class="px px-e"></div><div class="px px-e"></div><div class="px px-o"></div><div class="px px-e"></div>
+                    <!-- Row 3: top head -->
+                    <div class="px px-e"></div><div class="px px-e"></div><div class="px px-g"></div><div class="px px-g"></div><div class="px px-G"></div><div class="px px-G"></div><div class="px px-G"></div><div class="px px-G"></div><div class="px px-g"></div><div class="px px-g"></div><div class="px px-e"></div><div class="px px-e"></div>
+                    <!-- Row 4: eyes -->
+                    <div class="px px-e"></div><div class="px px-g"></div><div class="px px-w"></div><div class="px px-b"></div><div class="px px-G"></div><div class="px px-G"></div><div class="px px-G"></div><div class="px px-G"></div><div class="px px-w"></div><div class="px px-b"></div><div class="px px-g"></div><div class="px px-e"></div>
+                    <!-- Row 5: mouth -->
+                    <div class="px px-e"></div><div class="px px-g"></div><div class="px px-G"></div><div class="px px-G"></div><div class="px px-G"></div><div class="px px-b"></div><div class="px px-b"></div><div class="px px-G"></div><div class="px px-G"></div><div class="px px-G"></div><div class="px px-g"></div><div class="px px-e"></div>
+                    <!-- Row 6: neck -->
+                    <div class="px px-e"></div><div class="px px-e"></div><div class="px px-g"></div><div class="px px-g"></div><div class="px px-G"></div><div class="px px-G"></div><div class="px px-G"></div><div class="px px-G"></div><div class="px px-g"></div><div class="px px-g"></div><div class="px px-e"></div><div class="px px-e"></div>
+                    <!-- Row 7: wings + body -->
+                    <div class="px px-l"></div><div class="px px-l"></div><div class="px px-g"></div><div class="px px-g"></div><div class="px px-g"></div><div class="px px-l"></div><div class="px px-l"></div><div class="px px-g"></div><div class="px px-g"></div><div class="px px-g"></div><div class="px px-l"></div><div class="px px-l"></div>
+                    <!-- Row 8 -->
+                    <div class="px px-l"></div><div class="px px-e"></div><div class="px px-g"></div><div class="px px-g"></div><div class="px px-l"></div><div class="px px-l"></div><div class="px px-l"></div><div class="px px-l"></div><div class="px px-g"></div><div class="px px-g"></div><div class="px px-e"></div><div class="px px-l"></div>
+                    <!-- Row 9: body -->
+                    <div class="px px-e"></div><div class="px px-e"></div><div class="px px-g"></div><div class="px px-g"></div><div class="px px-l"></div><div class="px px-l"></div><div class="px px-l"></div><div class="px px-l"></div><div class="px px-g"></div><div class="px px-g"></div><div class="px px-e"></div><div class="px px-e"></div>
+                    <!-- Row 10 -->
+                    <div class="px px-e"></div><div class="px px-e"></div><div class="px px-g"></div><div class="px px-g"></div><div class="px px-l"></div><div class="px px-l"></div><div class="px px-l"></div><div class="px px-l"></div><div class="px px-g"></div><div class="px px-g"></div><div class="px px-e"></div><div class="px px-e"></div>
+                    <!-- Row 11: legs -->
+                    <div class="px px-e"></div><div class="px px-e"></div><div class="px px-g"></div><div class="px px-g"></div><div class="px px-g"></div><div class="px px-e"></div><div class="px px-e"></div><div class="px px-g"></div><div class="px px-g"></div><div class="px px-g"></div><div class="px px-e"></div><div class="px px-e"></div>
+                    <!-- Row 12: feet -->
+                    <div class="px px-e"></div><div class="px px-d"></div><div class="px px-d"></div><div class="px px-d"></div><div class="px px-e"></div><div class="px px-e"></div><div class="px px-e"></div><div class="px px-e"></div><div class="px px-d"></div><div class="px px-d"></div><div class="px px-d"></div><div class="px px-e"></div>
+                    <!-- Row 13: tail -->
+                    <div class="px px-e"></div><div class="px px-e"></div><div class="px px-e"></div><div class="px px-e"></div><div class="px px-e"></div><div class="px px-e"></div><div class="px px-e"></div><div class="px px-e"></div><div class="px px-e"></div><div class="px px-g"></div><div class="px px-g"></div><div class="px px-e"></div>
+                    <!-- Row 14 -->
+                    <div class="px px-e"></div><div class="px px-e"></div><div class="px px-e"></div><div class="px px-e"></div><div class="px px-e"></div><div class="px px-e"></div><div class="px px-e"></div><div class="px px-e"></div><div class="px px-e"></div><div class="px px-e"></div><div class="px px-g"></div><div class="px px-o"></div>
+                </div>
+            </div>
+            <div class="speech">"I'm retro cool!"</div>
+            <div class="stages"><span>8-bit charm</span><span>Simple & clean</span><span>Nostalgic</span></div>
+        </div>
+
+        <!-- OPTION 4: Canvas -->
+        <div class="card">
+            <h2>4. Canvas Animated Dragon</h2>
+            <p>Smooth programmatic animations & particle fire</p>
+            <div class="preview">
+                <canvas id="canvas-dragon" width="160" height="160"></canvas>
+            </div>
+            <div class="speech">"I'm the smoothest!"</div>
+            <div class="stages"><span>Particle fire</span><span>Smooth motion</span><span>Dynamic eyes</span></div>
+        </div>
+    </div>
+
+    <script>
+        // Canvas dragon animation
+        const canvas = document.getElementById('canvas-dragon');
+        const ctx = canvas.getContext('2d');
+        let frame = 0;
+
+        function drawCanvasDragon() {
+            ctx.clearRect(0, 0, 160, 160);
+            const t = frame * 0.03;
+            const bounce = Math.sin(t * 2) * 4;
+
+            ctx.save();
+            ctx.translate(0, bounce);
+
+            // Wing left
+            const wingAngle = Math.sin(t * 3) * 0.25;
+            ctx.save();
+            ctx.translate(48, 65);
+            ctx.rotate(-wingAngle);
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.quadraticCurveTo(-25, -20, -20, 5);
+            ctx.quadraticCurveTo(-15, 15, 0, 10);
+            ctx.fillStyle = '#81C784';
+            ctx.fill();
+            ctx.restore();
+
+            // Wing right
+            ctx.save();
+            ctx.translate(112, 65);
+            ctx.rotate(wingAngle);
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.quadraticCurveTo(25, -20, 20, 5);
+            ctx.quadraticCurveTo(15, 15, 0, 10);
+            ctx.fillStyle = '#81C784';
+            ctx.fill();
+            ctx.restore();
+
+            // Tail
+            const tailWag = Math.sin(t * 2.5) * 8;
+            ctx.beginPath();
+            ctx.moveTo(108, 105);
+            ctx.quadraticCurveTo(135 + tailWag, 95, 145 + tailWag, 80);
+            ctx.lineTo(142 + tailWag, 75);
+            ctx.quadraticCurveTo(130 + tailWag, 90, 105, 100);
+            ctx.fillStyle = '#4CAF50';
+            ctx.fill();
+            // tail tip
+            ctx.beginPath();
+            ctx.moveTo(145 + tailWag, 80);
+            ctx.lineTo(153 + tailWag, 73);
+            ctx.lineTo(148 + tailWag, 72);
+            ctx.closePath();
+            ctx.fillStyle = '#FF9800';
+            ctx.fill();
+
+            // Body
+            ctx.beginPath();
+            ctx.ellipse(80, 98, 32, 38, 0, 0, Math.PI * 2);
+            const bodyGrad = ctx.createLinearGradient(80, 60, 80, 136);
+            bodyGrad.addColorStop(0, '#4CAF50');
+            bodyGrad.addColorStop(1, '#2E7D32');
+            ctx.fillStyle = bodyGrad;
+            ctx.fill();
+
+            // Belly
+            ctx.beginPath();
+            ctx.ellipse(80, 105, 20, 25, 0, 0, Math.PI * 2);
+            ctx.fillStyle = '#A5D6A7';
+            ctx.fill();
+
+            // Head
+            ctx.beginPath();
+            ctx.ellipse(80, 48, 26, 24, 0, 0, Math.PI * 2);
+            ctx.fillStyle = '#66BB6A';
+            ctx.fill();
+
+            // Horns
+            ctx.fillStyle = '#FF9800';
+            ctx.beginPath();
+            ctx.moveTo(58, 30);
+            ctx.lineTo(52, 12);
+            ctx.lineTo(62, 26);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.moveTo(102, 30);
+            ctx.lineTo(108, 12);
+            ctx.lineTo(98, 26);
+            ctx.fill();
+
+            // Eyes
+            const lookX = Math.sin(t) * 2;
+            // White
+            ctx.beginPath();
+            ctx.ellipse(68, 44, 8, 7, 0, 0, Math.PI * 2);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            ctx.beginPath();
+            ctx.ellipse(92, 44, 8, 7, 0, 0, Math.PI * 2);
+            ctx.fill();
+            // Pupils (follow mouse... or just oscillate)
+            ctx.beginPath();
+            ctx.arc(70 + lookX, 44, 5, 0, Math.PI * 2);
+            ctx.fillStyle = '#1B5E20';
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(94 + lookX, 44, 5, 0, Math.PI * 2);
+            ctx.fill();
+            // Shine
+            ctx.beginPath();
+            ctx.arc(72 + lookX, 42, 2, 0, Math.PI * 2);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(96 + lookX, 42, 2, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Cheeks
+            ctx.beginPath();
+            ctx.arc(58, 56, 6, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(229,115,115,0.3)';
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(102, 56, 6, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Happy mouth
+            ctx.beginPath();
+            ctx.moveTo(70, 58);
+            ctx.quadraticCurveTo(80, 68, 90, 58);
+            ctx.strokeStyle = '#1B5E20';
+            ctx.lineWidth = 2.5;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+
+            // Fire particles
+            for (let i = 0; i < 5; i++) {
+                const px = 80 + Math.sin(t * 5 + i * 1.3) * 6;
+                const py = 66 + i * 3 + Math.sin(t * 4 + i) * 2;
+                const size = 3 - i * 0.4;
+                ctx.beginPath();
+                ctx.arc(px, py, Math.max(size, 0.5), 0, Math.PI * 2);
+                ctx.fillStyle = i < 2 ? '#FFEB3B' : (i < 4 ? '#FF9800' : '#FF5722');
+                ctx.globalAlpha = 0.7 - i * 0.12;
+                ctx.fill();
+            }
+            ctx.globalAlpha = 1;
+
+            // Feet
+            ctx.beginPath();
+            ctx.ellipse(65, 135, 10, 5, 0, 0, Math.PI * 2);
+            ctx.fillStyle = '#388E3C';
+            ctx.fill();
+            ctx.beginPath();
+            ctx.ellipse(95, 135, 10, 5, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.restore();
+
+            frame++;
+            requestAnimationFrame(drawCanvasDragon);
+        }
+        drawCanvasDragon();
+    </script>
+</body>
+</html>
